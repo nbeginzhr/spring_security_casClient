@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Hello Spring Security</title>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}" />
+    </head>
+    <body>
+		<h1>用户主页</h1>
+		<p>登陆可见</p>
+        <p><a href="/index" th:href="@{/index}">回到首页</a></p>
+
+        <!--<form th:action="@{/logout}" method="post">-->
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Log Out" />
+        </form>
+    </body>
+</html>

@@ -1,0 +1,60 @@
+server:
+  port: 8180
+  context-path: /
+  ssl:
+    key-store: D:\repository\cas\keystore
+    key-store-password: haoyu123
+    key-store-type: JKS
+    key-alias: haoyu
+
+spring:
+  application:
+    name: haoaccount
+  mustache:
+    enabled: true
+  http:
+    encoding:
+      enabled: true
+      charset: UTF-8
+      force: true
+  datasource:
+#    driver-class-name: com.mysql.jdbc.Driver
+    dataSourceClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/manage?serverTimezone=CTT&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+    username: root
+    password: root
+    cachePrepStmts: true # s设置是否对预编译使用local cache
+    prepStmtCacheSize: 250 # 指定了local cache的大小，使用了LRU进行逐出
+    prepStmtCacheSqlLimit: 2048 # 长度限制，默认256。超过该长度后，不使用预编译
+    useServerPrepStmts: true # 如果不开启(useServerPrepStmts=false)，使用com.mysql.jdbc.PreparedStatement进行本地SQL拼装，最后送到db上就是已经替换了?后的最终SQL
+    pool: HikariPool
+    maxActive: 20
+    minIdle: 1
+    initialSize: 1 # 初始化大小
+    maxWait: 60000 # 获取连接等待的超时时间
+  jpa:
+   database-platform: org.hibernate.dialect.MySQLInnoDBDialect
+   openInView: false
+   dataBase: MYSQL
+   show_sql: false
+   generate-ddl: false
+   hibernate:
+      ddl-auto: none
+      naming-strategy: org.hibernate.cfg.EJB3NamingStrategy
+  data:
+    jpa.repositories.enabled: true
+
+security:
+  cas:
+    server:
+      host: https://cn.haoyu.account:8443/cas
+      login: ${security.cas.server.host}/login
+      logout: ${security.cas.server.host}/logout
+    service:
+      host: https://cn.haoyu.account:8180
+      login: /login
+      logout: /logout
+
+logging:
+  level: info
+  file: account.log
